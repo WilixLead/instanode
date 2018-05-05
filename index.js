@@ -322,6 +322,15 @@ class InstaNode {
     helper.apiCall('/direct_v2/inbox/?', null, userSignature.cookies, callback);
   }
 
+  getThread(userSignature, threadId, callback) {
+    if (typeof userSignature === 'function') {
+      callback = userSignature;
+      userSignature = null;
+    }
+    userSignature = this._getUserSignature(userSignature);
+    helper.apiCall(`/direct_v2/threads/${threadId}/?`, null, userSignature.cookies, callback);
+  }
+
   getRecentActivity (userSignature, callback) {
     if (typeof userSignature === 'function') {
       callback = userSignature;

@@ -26,7 +26,7 @@ describe('Posting API', () => {
     });
   });
   
-  it('Should upload photo', (done) => {
+  xit('Should upload photo', (done) => {
     instanode.uploadPhoto(__dirname + '/assets/test.jpg', {
       caption: 'Русский текст?',
       userSignature: userSignature
@@ -44,6 +44,17 @@ describe('Posting API', () => {
       result.status.should.equal('ok');
       result.should.has.property('items');
       result.items[0].caption.text.should.equal('Русский текст?');
+      done();
+    });
+  });
+
+  it('Should return thread', done => {
+    instanode.getThread(userSignature, '340282366841710300949128169851183360830', (err, result) => {
+      result.should.has.property('status');
+      result.status.should.equal('ok');
+      result.should.has.property('thread');
+      result.thread.should.has.property('items');
+      result.items[0].should.has.property('user_id');
       done();
     });
   });
